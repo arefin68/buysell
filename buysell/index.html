@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Search</title>
+    <!-- Use Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="html.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .bg-image {
+            background-image: url('https://www.resmanagement.in/img/blog/commercial-properties-in-ahemedabad-res-management.webp');
+            background-size: cover;
+            background-position: center;
+        }
+        .active-tab {
+            border-bottom-color: #ef4444; /* red-500 */
+            color: #ef4444; /* red-500 */
+        }
+        .large-text {
+            /* Adjusting the large text to be more readable on the page */
+            font-size: 30px;
+            color: #ffffff;
+            font-weight: bold;
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        /* Footer styling from your provided CSS */
+        .footer-container {
+            background-color: #e8e8e8;
+            color: #333;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-heading {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2;
+            transition: color 0.3s;
+        }
+
+        .footer-links li a:hover {
+            color: #000;
+        }
+
+        .footer-social-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: #999;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .facebook { background-color: #3b5998; }
+        .twitter { background-color: #1da1f2; }
+        .pinterest { background-color: #bd081c; }
+        .instagram { background-color: #e1306c; }
+        .youtube { background-color: #ff0000; }
+
+        .footer-message {
+            font-size: 0.8rem;
+            color: #777;
+            margin: 15px 0;
+        }
+
+        .contact-info p {
+            font-size: 0.8rem;
+            margin: 5px 0;
+            color: #444;
+        }
+
+        .footer-copyright {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (min-width: 768px) {
+            .footer-container {
+                padding: 40px;
+            }
+
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            .footer-links {
+                text-align: left;
+                margin-bottom: 0;
+            }
+
+            .footer-social-icons {
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Main Container -->
+    <div class="relative w-full h-screen bg-gray-900 bg-image">
+        <!-- Overlay for better text visibility -->
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+
+        <!-- Top Navigation Bar -->
+        <header class="relative z-10 flex items-center justify-between p-6 md:p-8">
+            <!-- Left Side Links -->
+            <nav class="flex space-x-4 md:space-x-8 text-white font-semibold">
+                <a href="#" class="hover:text-red-500 transition-colors duration-300">Buy</a>
+                <a href="#" class="hover:text-red-500 transition-colors duration-300">Sale</a>
+                <a href="#" class="hover:text-red-500 transition-colors duration-300">Rent</a>
+            </nav>
+
+            <!-- Right Side Links -->
+            <nav class="flex items-center space-x-4 md:space-x-8 text-white font-semibold">
+                <a href="#" class="hover:text-red-500 transition-colors duration-300">Home</a>
+                <a href="#" class="hover:text-red-500 transition-colors duration-300">Blog</a>
+                <a href="#" class="hover:text-red-500 transition-colors duration-300 hidden md:block">About Us</a>
+                <a href="#" class="hover:text-red-500 transition-colors duration-300 hidden md:block">Contact</a>
+                
+                <!-- The single button that triggers the modal -->
+                <button id="modal-button" class="px-3 py-1 md:px-4 md:py-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors duration-300">
+                    Log In/Register
+                </button>
+                <button id="logout-button" class="px-3 py-1 md:px-4 md:py-2 bg-gray-600 text-white rounded-full hover:bg-gray-700 transition-colors duration-300 hidden">
+                    Log Out
+                </button>
+            </nav>
+        </header>
+
+        <!-- Search Section -->
+        <main class="relative z-10 flex items-center justify-center h-full px-4">
+            <div class="text-center w-full max-w-2xl">
+                <p class="large-text">Your digital and trusted realestate platform</p>
+                <h1 class="text-white text-lg md:text-2xl font-bold mb-4">Search properties for buy, sale and for rent in Bangladesh</h1>
+                <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <!-- Search Bar -->
+                    <input type="text" placeholder="Search" class="flex-1 w-full md:w-auto p-3 rounded-l-full rounded-r-full md:rounded-r-none bg-white bg-opacity-70 text-gray-800 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-300">
+                    <!-- Search Button -->
+                    <button class="w-full md:w-auto px-6 py-3 bg-red-600 text-white font-bold rounded-full md:rounded-l-none hover:bg-red-700 transition-colors duration-300">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- The Modal Background -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-50 hidden flex items-center justify-center">
+        <!-- The Modal Container -->
+        <div class="bg-white p-6 rounded-lg shadow-xl max-w-lg w-full relative">
+            <!-- Close Button -->
+            <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors" onclick="closeModal()">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+
+            <!-- Tabs for Login and Registration -->
+            <div class="tabs flex justify-around mb-6 border-b border-gray-300">
+                <button class="tab-button w-1/2 py-2 text-center text-lg font-semibold text-gray-500 border-b-2 border-transparent transition-all duration-300 hover:border-red-500 hover:text-red-500 active-tab" onclick="showForm('login')">
+                    Log In
+                </button>
+                <button class="tab-button w-1/2 py-2 text-center text-lg font-semibold text-gray-500 border-b-2 border-transparent transition-all duration-300 hover:border-red-500 hover:text-red-500" onclick="showForm('register')">
+                    Register
+                </button>
+            </div>
+
+            <!-- Login Form Section -->
+            <div id="login-form" class="form-section active">
+                <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Welcome Back!</h2>
+                <form>
+                    <div class="mb-4">
+                        <input type="text" placeholder="Email or Phone Number" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                    </div>
+                    <div class="mb-6">
+                        <input type="password" placeholder="Password" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                    </div>
+                    <button type="submit" class="w-full bg-red-600 text-white font-bold py-3 px-4 rounded-md hover:bg-red-700 transition duration-300">
+                        Log In
+                    </button>
+                </form>
+                <div class="social-login text-center mt-6">
+                    <p class="text-gray-500 mb-4">Or log in with</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="social-button bg-blue-600 text-white flex items-center justify-center w-1/2 py-3 rounded-md hover:bg-blue-700 transition duration-300"><i class="fab fa-google mr-2"></i> Google</a>
+                        <a href="#" class="social-button bg-gray-800 text-white flex items-center justify-center w-1/2 py-3 rounded-md hover:bg-gray-900 transition duration-300"><i class="fab fa-facebook-f mr-2"></i> Facebook</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Form Section -->
+            <div id="register-form" class="form-section hidden">
+                <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Create an Account</h2>
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <input type="text" placeholder="First Name" class="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                        <input type="text" placeholder="Last Name" class="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex items-center">
+                            <input type="tel" placeholder="Phone Number" class="w-full p-3 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                            <button type="button" class="otp-button bg-gray-200 text-gray-700 text-sm font-semibold py-3 px-4 rounded-r-md hover:bg-gray-300 transition duration-300">Send OTP</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <input type="text" placeholder="Enter Phone OTP" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex items-center">
+                            <input type="email" placeholder="Email Address" class="w-full p-3 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                            <button type="button" class="otp-button bg-gray-200 text-gray-700 text-sm font-semibold py-3 px-4 rounded-r-md hover:bg-gray-300 transition duration-300">Send OTP</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <input type="text" placeholder="Enter Email OTP" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                    </div>
+                    <div class="mb-6">
+                        <input type="password" placeholder="Password (min 6 characters)" minlength="6" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                    </div>
+                    <button type="submit" class="w-full bg-red-600 text-white font-bold py-3 px-4 rounded-md hover:bg-red-700 transition duration-300">
+                        Register
+                    </button>
+                </form>
+                <div class="social-login text-center mt-6">
+                    <p class="text-gray-500 mb-4">Or register with</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="social-button bg-blue-600 text-white flex items-center justify-center w-1/2 py-3 rounded-md hover:bg-blue-700 transition duration-300"><i class="fab fa-google mr-2"></i> Google</a>
+                        <a href="#" class="social-button bg-gray-800 text-white flex items-center justify-center w-1/2 py-3 rounded-md hover:bg-gray-900 transition duration-300"><i class="fab fa-facebook-f mr-2"></i> Facebook</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Section (visible after login) -->
+    <div id="content-section" class="hidden p-8">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Post a New Property</h2>
+            <form id="post-form" class="bg-white p-6 rounded-lg shadow-lg mb-8">
+                <div class="mb-4">
+                    <label for="post-type" class="block text-gray-700 font-semibold mb-2">Property Type</label>
+                    <select id="post-type" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                        <option value="buy">Buy</option>
+                        <option value="sale">Sale</option>
+                        <option value="rent">Rent</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="post-title" class="block text-gray-700 font-semibold mb-2">Title</label>
+                    <input type="text" id="post-title" placeholder="e.g., Spacious 3-bedroom apartment for sale" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="post-description" class="block text-gray-700 font-semibold mb-2">Description</label>
+                    <textarea id="post-description" placeholder="Describe the property in detail..." rows="5" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="post-media" class="block text-gray-700 font-semibold mb-2">Images/Videos/PDFs</label>
+                    <input type="file" id="post-media" multiple class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                </div>
+                <button type="submit" class="w-full bg-red-600 text-white font-bold py-3 px-4 rounded-md hover:bg-red-700 transition duration-300">
+                    Post Property
+                </button>
+            </form>
+
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Recent Properties</h2>
+            <div id="loading-indicator" class="text-center text-gray-500 hidden">Loading properties...</div>
+            <div id="properties-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Property cards will be injected here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Footer Section -->
+    <footer class="footer-container">
+        <div class="footer-content">
+            <!-- Left section with links -->
+            <div class="footer-links">
+                <h3 class="footer-heading">ABOUT</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Career</a></li>
+                    <li><a href="#">Terms and Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Right section with social icons -->
+            <div class="footer-social-icons">
+                <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon pinterest"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        
+        <div class="footer-info">
+            <!-- Company message -->
+            <p class="footer-message">We are realestate committed to giving you the best experience. For any questions, comments, or issues, kindly contact us.</p>
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <p>PHONE: 01990791222</p>
+                <p>CUSTOMER CARE: 01990791222</p>
+                <p>HEAD OFFICE: 70/2,Notun Bazar,Sadar Mymensingh,Bangladesh</p>
+            </div>
+        </div>
+
+        <!-- Copyright section -->
+        <div class="footer-copyright">
+            <p>© 2025. realestate.com All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
+
+        // IMPORTANT: Global variables are automatically provided by the Canvas environment.
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const storage = getStorage(app);
+
+        const modalButton = document.getElementById('modal-button');
+        const logoutButton = document.getElementById('logout-button');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const contentSection = document.getElementById('content-section');
+        const postForm = document.getElementById('post-form');
+        const propertiesContainer = document.getElementById('properties-container');
+        const loadingIndicator = document.getElementById('loading-indicator');
+
+        // Function to open the modal
+        modalButton.addEventListener('click', () => {
+            modalBackdrop.classList.remove('hidden');
+        });
+
+        // Function to close the modal
+        function closeModal() {
+            modalBackdrop.classList.add('hidden');
+        }
+
+        // Function to switch between login and registration forms
+        function showForm(formId) {
+            const sections = document.querySelectorAll('.form-section');
+            sections.forEach(section => section.classList.add('hidden'));
+
+            const tabs = document.querySelectorAll('.tab-button');
+            tabs.forEach(tab => tab.classList.remove('active-tab'));
+
+            document.getElementById(formId + '-form').classList.remove('hidden');
+            document.querySelector(`.tab-button[onclick*="${formId}"]`).classList.add('active-tab');
+        }
+
+        // Initially set the active tab style
+        document.querySelector('.tab-button').classList.add('active-tab');
+
+        // Log out user
+        logoutButton.addEventListener('click', async () => {
+            await signOut(auth);
+        });
+
+        // --- Firebase Authentication and UI Toggling ---
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // User is signed in
+                modalButton.classList.add('hidden');
+                logoutButton.classList.remove('hidden');
+                contentSection.classList.remove('hidden');
+                closeModal(); // Close the modal if the user signs in
+                console.log("User is authenticated with UID:", user.uid);
+                // Setup the real-time listener only after authentication is confirmed
+                setupRealtimeListener();
+            } else {
+                // User is signed out
+                modalButton.classList.remove('hidden');
+                logoutButton.classList.add('hidden');
+                contentSection.classList.add('hidden');
+                // Auto-sign in with the provided token or anonymously
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken).catch((error) => {
+                        console.error("Custom token sign-in failed:", error);
+                    });
+                } else {
+                    await signInAnonymously(auth).catch((error) => {
+                        console.error("Anonymous sign-in failed:", error);
+                    });
+                }
+            }
+        });
+
+        // --- Post Form Submission ---
+        postForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const postType = document.getElementById('post-type').value;
+            const postTitle = document.getElementById('post-title').value;
+            const postDescription = document.getElementById('post-description').value;
+            const postMedia = document.getElementById('post-media').files;
+
+            if (!postTitle || !postDescription) {
+                console.error("Title and description are required.");
+                return;
+            }
+            
+            // Check if user is authenticated before attempting to post
+            if (!auth.currentUser) {
+                console.error("User is not authenticated. Please log in.");
+                return;
+            }
+
+            const userId = auth.currentUser.uid;
+            const mediaUrls = [];
+
+            try {
+                // Show a simple loading state
+                postForm.querySelector('button').textContent = 'Posting...';
+                postForm.querySelector('button').disabled = true;
+
+                // Upload media files to Firebase Storage
+                for (const file of postMedia) {
+                    const storageRef = ref(storage, `properties/${userId}/${file.name}_${Date.now()}`);
+                    const uploadTask = await uploadBytes(storageRef, file);
+                    const downloadURL = await getDownloadURL(uploadTask.ref);
+                    mediaUrls.push(downloadURL);
+                }
+
+                // Add a new document to the 'properties' collection in Firestore
+                const propertiesCollection = collection(db, `artifacts/${appId}/public/data/properties`);
+                await addDoc(propertiesCollection, {
+                    userId: userId,
+                    type: postType,
+                    title: postTitle,
+                    description: postDescription,
+                    mediaUrls: mediaUrls,
+                    createdAt: serverTimestamp()
+                });
+
+                // Clear the form and show a success message (in a modal or similar)
+                postForm.reset();
+                console.log("Property posted successfully!");
+            } catch (error) {
+                console.error("Error posting property:", error);
+                // Use a custom UI element instead of `alert()`
+                // You can create a simple message box to display this error
+                console.error("Error posting property. Please try again.");
+            } finally {
+                postForm.querySelector('button').textContent = 'Post Property';
+                postForm.querySelector('button').disabled = false;
+            }
+        });
+
+        // --- Real-time data fetching and display ---
+        function displayProperties(properties) {
+            propertiesContainer.innerHTML = ''; // Clear previous properties
+            if (properties.length === 0) {
+                propertiesContainer.innerHTML = '<p class="text-center text-gray-500 col-span-full">No properties posted yet.</p>';
+            }
+            properties.forEach(prop => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-lg shadow-lg p-6';
+                let mediaHtml = '';
+                if (prop.mediaUrls && prop.mediaUrls.length > 0) {
+                    const firstMediaUrl = prop.mediaUrls[0];
+                    if (firstMediaUrl.includes('.pdf')) {
+                        mediaHtml = `<a href="${firstMediaUrl}" target="_blank" class="block w-full h-48 bg-gray-200 flex items-center justify-center rounded-md overflow-hidden mb-4">
+                                        <i class="fas fa-file-pdf text-6xl text-red-500"></i>
+                                     </a>`;
+                    } else if (firstMediaUrl.includes('.mp4') || firstMediaUrl.includes('.webm')) {
+                         mediaHtml = `<video controls src="${firstMediaUrl}" class="w-full h-48 object-cover rounded-md mb-4"></video>`;
+                    } else {
+                        mediaHtml = `<img src="${firstMediaUrl}" alt="Property image" class="w-full h-48 object-cover rounded-md mb-4">`;
+                    }
+                }
+                card.innerHTML = `
+                    ${mediaHtml}
+                    <span class="inline-block bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded-full mb-2">${prop.type.toUpperCase()}</span>
+                    <h3 class="text-xl font-bold text-gray-900">${prop.title}</h3>
+                    <p class="text-gray-600 mt-2">${prop.description}</p>
+                    <p class="text-xs text-gray-400 mt-2">Posted by: ${prop.userId}</p>
+                `;
+                propertiesContainer.appendChild(card);
+            });
+        }
+
+        function setupRealtimeListener() {
+            loadingIndicator.classList.remove('hidden');
+            const propertiesQuery = query(collection(db, `artifacts/${appId}/public/data/properties`));
+            
+            onSnapshot(propertiesQuery, (snapshot) => {
+                const properties = [];
+                snapshot.forEach(doc => {
+                    properties.push({ id: doc.id, ...doc.data() });
+                });
+                displayProperties(properties);
+                loadingIndicator.classList.add('hidden');
+            }, (error) => {
+                console.error("Error fetching properties: ", error);
+                loadingIndicator.classList.add('hidden');
+                propertiesContainer.innerHTML = '<p class="text-center text-red-500 col-span-full">Failed to load properties. Please try again later.</p>';
+            });
+        }
+    </script>
+</body>
+</html>

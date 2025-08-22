@@ -1,0 +1,174 @@
+/* Basic styling for footer section */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Footer Container */
+.footer-container {
+    background-color: #e8e8e8;
+    color: #333;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Footer content section */
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 20px;
+}
+
+/* Left side links */
+.footer-links {
+    margin-bottom: 20px;
+}
+
+.footer-heading {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    line-height: 2;
+    transition: color 0.3s;
+}
+
+.footer-links li a:hover {
+    color: #000;
+}
+
+/* Right side social icons */
+.footer-social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.social-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #999;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+}
+
+.facebook { background-color: #3b5998; }
+.twitter { background-color: #1da1f2; }
+.pinterest { background-color: #bd081c; }
+.instagram { background-color: #e1306c; }
+.youtube { background-color: #ff0000; }
+
+/* General information section */
+.footer-info {
+    width: 100%;
+    max-width: 1200px;
+    padding-top: 20px;
+    border-top: 1px solid #ccc;
+}
+
+.footer-sub-heading {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.footer-urls a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin: 0 5px;
+    transition: color 0.3s;
+}
+
+.footer-urls a:hover {
+    color: #0056b3;
+}
+
+.footer-message {
+    font-size: 0.8rem;
+    color: #777;
+    margin: 15px 0;
+}
+
+.contact-info p {
+    font-size: 0.8rem;
+    margin: 5px 0;
+    color: #444;
+}
+
+/* Copyright section */
+.footer-copyright {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: #555;
+}
+
+/* Media Queries for Responsiveness */
+@media (min-width: 768px) {
+    .footer-container {
+        padding: 40px;
+    }
+
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .footer-links {
+        text-align: left;
+        margin-bottom: 0;
+    }
+
+    .footer-social-icons {
+        margin-top: 0;
+    }
+    
+    .footer-info {
+        text-align: left;
+    }
+}
+.large-text {
+            /* This is the key part: setting the font size to 500 pixels */
+            font-size: 30px;
+            /* Set the text color to white */
+            color: #ffffff;
+            /* Use a bold font weight for better visibility */
+            font-weight: bold;
+            /* Center the text within its container */
+            text-align: center;
+            /* Allow the text to wrap if the screen is too small */
+            word-wrap: break-word;
+            }
